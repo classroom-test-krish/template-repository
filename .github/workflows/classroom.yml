@@ -13,23 +13,16 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: addition test
-      id: addition-test
-      uses: classroom-resources/autograding-io-grader@v1
+    - name: addition_test.py
+      id: addition_test-py
+      uses: classroom-resources/autograding-python-grader@v1
       with:
-        test-name: addition test
-        setup-command: ''
-        command: python test.py
-        input: |-
-          1
-          1
-        expected-output: '2'
-        comparison-method: exact
         timeout: 10
-        max-score: 10
+        max-score: 50
+        setup-command: ''
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        ADDITION-TEST_RESULTS: "${{steps.addition-test.outputs.result}}"
+        ADDITION_TEST-PY_RESULTS: "${{steps.addition_test-py.outputs.result}}"
       with:
-        runners: addition-test
+        runners: addition_test-py
